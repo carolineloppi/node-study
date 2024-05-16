@@ -1,0 +1,13 @@
+POST http://localhost:3333/videos HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Video 1",
+    "description": "ué",
+    "duration": 180
+}
+
+
+#Ver pq a rota não funciona.
+#Usar postman
+#https://www.youtube.com/watch?v=hHM-hr9q4mo 39:13
