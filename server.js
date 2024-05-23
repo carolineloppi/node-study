@@ -1,47 +1,60 @@
-/*import {createServer} from 'node:http'
+/*import { createServer } from "node:http";
 
-const server = createServer((request, response)=>{
-    response.write('oieww') 
-    return response.end()
-})
+const server = createServer((request, response) => {
+  response.write("oieww");
+  return response.end();
+});
 
-server.listen(3333)*/
+server.listen(3333);*/
 
 import { fastify } from "fastify";
-import {DatabaseMemory} from "./database-memory.js"
+import { DatabaseMemory } from "./database-memory.js";
 
-const server = fastify()
-const database = new DatabaseMemory()
+const server = fastify();
+const database = new DatabaseMemory();
 
 //Route Parameter :id
 //POST http://localhost:3333/videos
 //PUT http://localhost:3333/videos/3
 
-server.post('/videos', (request, reply)=>{
+server.get("/", (request, reply) => {
+  console.log("Home");
+  reply.header("Content-Type", "text/html");
+  return "<h1>Teste</h1>";
+});
 
-    const {title, description, duration} = request.body;
-    console.log(body)
-    database.create({
-        title,
-        description,
-        duration,
-    })
-    console.log(database.list())
+server.get("/videos", (request, reply) => {
+  const search = request.query.search;
+  console.log(search);
+  const videos = database.list(search);
+  return videos;
+});
 
-    return reply.status(201).send()
-})
+server.post("/videos", (request, reply) => {
+  const { title, description, duration } = request.body;
+  database.create({
+    title,
+    description,
+    duration,
+  });
 
-server.get('/videos', (request, reply)=>{
-    const videos = database.list()
-    return videos
+  return reply.status(201).send();
+});
 
-})
+server.put("/videos/:id", (request, reply) => {
+  const videoId = request.params.id;
+  const { title, description, duration } = request.body;
 
-server.put('/videos/:id', ()=>{
-    return 'Equipe Rocket!'
-})
+  database.update(videoId, {
+    title,
+    description,
+    duration,
+  });
 
-server.delete('/videos/:id', ()=>{
-    return 'Equipe Rocket!'
-})
-server.listen({port:3333})
+  return reply.status(204).send();
+});
+
+server.delete("/videos/:id", () => {
+  return "Equipe Rocket!!";
+});
+server.listen({ port: 3333 });

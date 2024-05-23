@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon server.js",
+    "start-api": "nodemon simple-api/server-api.js",
+    "start-native-server": "nodemon native-node/native-server.js",
     "dev": "node --watch --no-warnings server.js"
   },
   "keywords": [],
@@ -14,5 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "fastify": "^4.27.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.5"
   }
 }
