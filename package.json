@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
+    "start-fs": "nodemon concepts/fsDemo.js",
     "start-api": "nodemon simple-api/server-api.js",
     "start-native-server": "nodemon native-node/native-server.js",
     "dev": "node --watch --no-warnings server.js"
